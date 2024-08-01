@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/husky.sh"
-
 # Check if we're in a commit that is not from semantic-release
 if [ -z "$HUSKY_SKIP_HOOKS" ] && [ "$2" = "message" ]; then
     # For Windows
