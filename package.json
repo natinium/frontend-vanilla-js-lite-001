@@ -9,7 +9,7 @@
     "lint": "npx eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "prepare": "husky",
+    "prepare": "npx husky init",
     "commit": "cz"
   },
   "lint-staged": {
