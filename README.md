@@ -7,7 +7,7 @@ Welcome to your project! This project is a vanilla frontend setup using HTML, SC
 
 ## Project Structure
 
-```plaintext
+```
 project-root/
 │
 ├── index.html
