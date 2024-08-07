@@ -4,13 +4,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch styles/main.scss:styles/main.css --style expanded",
-    "sass:build": "sass styles/main.scss:styles/main.css --style compressed",
+    "sass": "sass src/styles/main.scss:dist/styles/main.css --watch --style expanded",
+    "sass:build": "sass src/styles/main.scss:dist/styles/main.css --style compressed",
     "lint": "npx eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "prepare": "npx husky init",
-    "commit": "cz"
+    "commit": "cz",
+    "serve": "npx live-server --watch=dist --mount=/:dist --entry-file=dist/index.html",
+    "copy:html": "copyfiles -u 1 src/*.html dist/",
+    "copy:js": "copyfiles -u 2 src/scripts/**/*.js dist/scripts/",
+    "watch:html": "nodemon --watch src --ext html --exec \"npm run copy:html\" --legacy-watch",
+    "watch:js": "nodemon --watch src/scripts --ext dist/scripts --exec \"npm run copy:js\" --legacy-watch",
+    "build": "npm run sass:build && npm run copy:html && npm run copy:js",
+    "start": "npm run build && concurrently \"npm run sass\" \"npm run watch:html\" \"npm run watch:js\" \"npm run serve\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -29,6 +35,8 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@eslint/js": "^9.8.0",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
     "cz-conventional-changelog": "^3.3.0",
     "cz-gitmoji-conventional": "github:natinium/cz-gitmoji-conventional",
     "eslint": "^9.8.0",
@@ -36,6 +44,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
     "lint-staged": "^15.2.7",
+    "live-server": "^1.2.0",
+    "nodemon": "^3.1.4",
     "prettier": "3.3.3",
     "sass": "^1.77.8"
   },
